@@ -1,0 +1,187 @@
+[33mcommit ccbf7159381fdc9167f98bc1280c19de70a59763[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Felipe Ferreira <flpferreira1999@gmail.com>
+Date:   Mon Mar 3 18:27:09 2025 -0300
+
+    Adicionando Padrão DTO
+
+[1mdiff --git a/.gitignore.txt b/.gitignore.txt[m
+[1mdeleted file mode 100644[m
+[1mindex f03a5d1..0000000[m
+[1m--- a/.gitignore.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,44 +0,0 @@[m
+[31m-*.class[m
+[31m-[m
+[31m-[m
+[31m-/node_modules[m
+[31m-[m
+[31m-# SSH Keys[m
+[31m-[m
+[31m-*.pem[m
+[31m-*.ppk[m
+[31m-[m
+[31m-# Mobile Tools for Java (J2ME)[m
+[31m-.mtj.tmp/[m
+[31m-[m
+[31m-# Package Files #[m
+[31m-*.jar[m
+[31m-*.war[m
+[31m-*.ear[m
+[31m-[m
+[31m-# Merge Files[m
+[31m-*.bak[m
+[31m-[m
+[31m-#Gradle temporary files[m
+[31m-target/[m
+[31m-[m
+[31m-#Eclipse files[m
+[31m-**/.project[m
+[31m-**/.classpath[m
+[31m-**/.settings/[m
+[31m-/bin/[m
+[31m-blog/bin/[m
+[31m-**/.tern-project[m
+[31m-**/.factorypath[m
+[31m-[m
+[31m-#IntelliJ files[m
+[31m-**/*.iml[m
+[31m-**/.idea[m
+[31m-**/.gradle[m
+[31m-[m
+[31m-#Other Files[m
+[31m-*.ini[m
+[31m-[m
+[31m-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml[m
+[31m-hs_err_pid*[m
+[31m-/.metadata/[m
+[1mdiff --git a/pom.xml b/pom.xml[m
+[1mindex ceb1a92..153d6b0 100644[m
+[1m--- a/pom.xml[m
+[1m+++ b/pom.xml[m
+[36m@@ -21,7 +21,26 @@[m
+ 			<groupId>org.springframework.boot</groupId>[m
+ 			<artifactId>spring-boot-starter-web</artifactId>[m
+ 		</dependency>[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>org.springframework.boot</groupId>[m
+[32m+[m			[32m<artifactId>spring-boot-starter-data-jpa</artifactId>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>com.mysql</groupId>[m
+[32m+[m			[32m<artifactId>mysql-connector-j</artifactId>[m
+[32m+[m			[32m<scope>runtime</scope>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>com.github.dozermapper</groupId>[m
+[32m+[m			[32m<artifactId>dozer-core</artifactId>[m
+[32m+[m			[32m<version>7.0.0</version>[m
+[32m+[m		[32m</dependency>[m
+ [m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>org.springframework.boot</groupId>[m
+[32m+[m			[32m<artifactId>spring-boot-starter-test</artifactId>[m
+[32m+[m			[32m<scope>test</scope>[m
+[32m+[m		[32m</dependency>[m
+ 		<dependency>[m
+ 			<groupId>org.springframework.boot</groupId>[m
+ 			<artifactId>spring-boot-devtools</artifactId>[m
+[36m@@ -30,8 +49,7 @@[m
+ 		</dependency>[m
+ 		<dependency>[m
+ 			<groupId>org.springframework.boot</groupId>[m
+[31m-			<artifactId>spring-boot-starter-test</artifactId>[m
+[31m-			<scope>test</scope>[m
+[32m+[m			[32m<artifactId>spring-boot-starter-data-jpa</artifactId>[m
+ 		</dependency>[m
+ 	</dependencies>[m
+ [m
+[1mdiff --git a/src/main/java/br/com/felipe/controllers/GreetingController.java b/src/main/java/br/com/felipe/controllers/GreetingController.java[m
+[1mdeleted file mode 100644[m
+[1mindex 301ed2d..0000000[m
+[1m--- a/src/main/java/br/com/felipe/controllers/GreetingController.java[m
+[1m+++ /dev/null[m
+[36m@@ -1,22 +0,0 @@[m
+[31m-package br.com.felipe.controllers;[m
+[31m-[m
+[31m-import br.com.felipe.model.Greeting;[m
+[31m-import org.springframework.web.bind.annotation.RequestMapping;[m
+[31m-import org.springframework.web.bind.annotation.RequestParam;[m
+[31m-import org.springframework.web.bind.annotation.RestController;[m
+[31m-[m
+[31m-import java.util.concurrent.atomic.AtomicLong;[m
+[31m-[m
+[31m-@RestController[m
+[31m-public class GreetingController {[m
+[31m-[m
+[31m-    private static final String template = "Hello, %s!";[m
+[31m-    private final AtomicLong counter = new AtomicLong();[m
+[31m-    @RequestMapping("/greeting")[m
+[31m-    public Greeting greeting([m
+[31m-            @RequestParam(value = "name", defaultValue = "World"[m
+[31m-            )[m
+[31m-            String name) {[m
+[31m-        return new Greeting(counter.incrementAndGet(), String.format(template, name));[m
+[31m-    }[m
+[31m-}[m
+[1mdiff --git a/src/main/java/br/com/felipe/model/Greeting.java b/src/main/java/br/com/felipe/model/Greeting.java[m
+[1mdeleted file mode 100644[m
+[1mindex b63bc43..0000000[m
+[1m--- a/src/main/java/br/com/felipe/model/Greeting.java[m
+[1m+++ /dev/null[m
+[36m@@ -1,4 +0,0 @@[m
+[31m-package br.com.felipe.model;[m
+[31m-[m
+[31m-public record Greeting(long id, String content) {[m
+[31m-}[m
+[1mdiff --git a/src/main/resources/application.yml b/src/main/resources/application.yml[m
+[1mindex 5beeb24..615eb1b 100644[m
+[1m--- a/src/main/resources/application.yml[m
+[1m+++ b/src/main/resources/application.yml[m
+[36m@@ -1 +1,15 @@[m
+[31m-spring.application.name=rest-springboot[m
+[32m+[m[32mspring:[m
+[32m+[m[32m  application:[m
+[32m+[m[32m    name: rest-springboot[m
+[32m+[m[32m  datasource:[m
+[32m+[m[32m    driver-class-name: com.mysql.cj.jdbc.Driver[m
+[32m+[m[32m    url: jdbc:mysql://localhost:3306/spring_boot?useTimezone=true&serverTimezone=UTC[m
+[32m+[m[32m    username: root[m
+[32m+[m[32m    password: 1234[m
+[32m+[m[32m  jpa:[m
+[32m+[m[32m    hibernate:[m
+[32m+[m[32m      ddl-auto: update[m
+[32m+[m[32m    properties:[m
+[32m+[m[32m      hibernate:[m
+[32m+[m[32m    show_sql: false[m
+[32m+[m[32m    open-in-view: false[m
+\ No newline at end of file[m
+[1mdiff --git a/target/classes/application.yml b/target/classes/application.yml[m
+[1mindex 5beeb24..615eb1b 100644[m
+[1m--- a/target/classes/application.yml[m
+[1m+++ b/target/classes/application.yml[m
+[36m@@ -1 +1,15 @@[m
+[31m-spring.application.name=rest-springboot[m
+[32m+[m[32mspring:[m
+[32m+[m[32m  application:[m
+[32m+[m[32m    name: rest-springboot[m
+[32m+[m[32m  datasource:[m
+[32m+[m[32m    driver-class-name: com.mysql.cj.jdbc.Driver[m
+[32m+[m[32m    url: jdbc:mysql://localhost:3306/spring_boot?useTimezone=true&serverTimezone=UTC[m
+[32m+[m[32m    username: root[m
+[32m+[m[32m    password: 1234[m
+[32m+[m[32m  jpa:[m
+[32m+[m[32m    hibernate:[m
+[32m+[m[32m      ddl-auto: update[m
+[32m+[m[32m    properties:[m
+[32m+[m[32m      hibernate:[m
+[32m+[m[32m    show_sql: false[m
+[32m+[m[32m    open-in-view: false[m
+\ No newline at end of file[m
+[1mdiff --git a/target/classes/br/com/felipe/controllers/GreetingController.class b/target/classes/br/com/felipe/controllers/GreetingController.class[m
+[1mdeleted file mode 100644[m
+[1mindex a0ca4cd..0000000[m
+Binary files a/target/classes/br/com/felipe/controllers/GreetingController.class and /dev/null differ
+[1mdiff --git a/target/classes/br/com/felipe/model/Greeting.class b/target/classes/br/com/felipe/model/Greeting.class[m
+[1mdeleted file mode 100644[m
+[1mindex 5e99eae..0000000[m
+Binary files a/target/classes/br/com/felipe/model/Greeting.class and /dev/null differ
