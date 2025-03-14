@@ -1,1 +1,4 @@
 br\com\felipe\StartupTests.class
+br\com\felipe\services\PersonServicesTest.class
+br\com\felipe\unitetests\mapper\mocks\MockPerson.class
+br\com\felipe\unitetests\mapper\ObjectMapperTests.class
