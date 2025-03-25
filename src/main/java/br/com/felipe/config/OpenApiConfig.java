@@ -12,9 +12,9 @@ public class OpenApiConfig {
     @Bean
     OpenAPI customOpenAPI() {
         return new OpenAPI().info(new Info()
-            .title("REST API's RESTful from 0 java, spring boot, docker, kubernetes and Docker")
+            .title("REST API's RESTful java, spring boot, ")
             .version("v1")
-            .description("RESTful from 0 java, spring boot, docker, kubernetes and Docker")
+            .description("RESTful java, spring boot")
                 .termsOfService("http://swagger.io/terms/")
                 .license(new License()
                     .name("Apache 2.0")

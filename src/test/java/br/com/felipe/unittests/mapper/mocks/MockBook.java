@@ -1,4 +1,4 @@
-package br.com.felipe.unitetests.mapper.mocks;
+package br.com.felipe.unittests.mapper.mocks;
 
 import java.util.ArrayList;
 import java.util.Date;

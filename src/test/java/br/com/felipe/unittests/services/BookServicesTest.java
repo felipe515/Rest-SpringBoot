@@ -1,10 +1,11 @@
-package br.com.felipe.services;
+package br.com.felipe.unittests.services;
 
 import br.com.felipe.data.dto.BookDTO;
 import br.com.felipe.exception.RequiredObjectIsNullException;
 import br.com.felipe.model.Book;
 import br.com.felipe.repository.BookRepository;
-import br.com.felipe.unitetests.mapper.mocks.MockBook;
+import br.com.felipe.services.BookServices;
+import br.com.felipe.unittests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
