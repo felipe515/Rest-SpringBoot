@@ -1,5 +1,7 @@
 cors:
   originPatterns: http://localhost:8080,http://localhost:3000,https://www.erudio.com.br
+file:
+  upload-dir: C:/Users/felip/OneDrive/Área de Trabalho/CursoSpring/UploadDir
 spring:
   application:
     name: rest-springboot

@@ -1,8 +1,6 @@
 package br.com.felipe.exception.hadler;
 
-import br.com.felipe.exception.ExceptionResponse;
-import br.com.felipe.exception.RequiredObjectIsNullException;
-import br.com.felipe.exception.ResourceNotFoundException;
+import br.com.felipe.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,12 +33,30 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(RequiredObjectIsNullException.class)
+    @ExceptionHandler(BadRequestException.class)
     public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception ex, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
                 ex.getMessage(),
                 request.getDescription(false));
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> handleFileNotExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(FileStorageException.class)
+    public final ResponseEntity<ExceptionResponse> handleFilStorageExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
